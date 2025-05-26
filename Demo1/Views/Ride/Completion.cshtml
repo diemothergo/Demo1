@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Hoàn Tất Chuyến Xe";
+}
+
+<div class="container mt-5">
+    <h1 class="display-4 mb-4">Chuyến Xe Đã Hoàn Tất</h1>
+    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Thành công</h4>
+            <p>@ViewBag.SuccessMessage</p>
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Thông Báo Thanh Toán</h4>
+            <p>@ViewBag.Message</p>
+        </div>
+    }
+    <a asp-action="Index" class="btn btn-primary btn-lg mt-4">Đặt Chuyến Xe Mới</a>
+</div>

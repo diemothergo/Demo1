@@ -1,0 +1,79 @@
+﻿@model SmartRide.Models.RideViewModel
+@{
+    ViewData["Title"] = "Theo Dõi Chuyến Xe";
+
+    // Simulate driver and vehicle details (in a real app, this would come from the controller)
+    var driverName = "Nguyễn Văn A";
+    var vehicleInfo = "Xe máy - Biển số: 29H1-123.45";
+    var progressPercentage = 40; // Simulated progress (0-100%)
+}
+
+<div class="container mt-5">
+    <h1 class="display-4 mb-4">Theo Dõi Chuyến Xe @Model.RideId</h1>
+
+    <!-- Success Message -->
+    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Thành công</h4>
+            <p>@ViewBag.SuccessMessage</p>
+        </div>
+    }
+
+    <!-- Map and Vehicle Location -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Vị trí xe</h5>
+            <!-- Static map placeholder with vehicle and route (replace with real map integration in production) -->
+            <img src="https://via.placeholder.com/800x400?text=Map+with+Vehicle+Route" class="img-fluid mb-3" alt="Bản đồ vị trí xe" />
+            <p class="card-text"><strong>Tài xế:</strong> @driverName</p>
+            <p class="card-text"><strong>Thông tin xe:</strong> @vehicleInfo</p>
+            <p class="card-text"><strong>Vị trí hiện tại:</strong> @Model.DriverLocation</p>
+            <p class="card-text"><strong>Điểm đến:</strong> @Model.DropoffLocation</p>
+        </div>
+    </div>
+
+    <!-- Ride Progress and ETA -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Tiến độ chuyến đi</h5>
+            <!-- Progress Bar -->
+            <div class="progress mb-3" style="height: 20px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: @progressPercentage%;"
+                     aria-valuenow="@progressPercentage" aria-valuemin="0" aria-valuemax="100">
+                    @progressPercentage%
+                </div>
+            </div>
+            <!-- Ride Status and ETA -->
+            <p class="card-text"><strong>Trạng thái:</strong> Đang đến đón</p>
+            <p class="card-text"><strong>Thời gian dự kiến đến:</strong> <span id="etaCountdown">@Model.ETA</span> phút</p>
+        </div>
+    </div>
+
+    <!-- Complete Ride Button -->
+    <form asp-action="Complete" method="post" class="mt-4">
+        <input type="hidden" name="id" value="@Model.RideId" />
+        <button type="submit" class="btn btn-success btn-lg">Hoàn Tất Chuyến Xe</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simulate ETA countdown (for demo purposes)
+        let eta = @Model.ETA * 60; // Convert minutes to seconds
+        const etaDisplay = document.getElementById("etaCountdown");
+
+        function updateETA() {
+            if (eta <= 0) {
+                etaDisplay.textContent = "0";
+                return;
+            }
+            let minutes = Math.floor(eta / 60);
+            etaDisplay.textContent = minutes;
+            eta--;
+        }
+
+        setInterval(updateETA, 1000); // Update every second
+    </script>
+}

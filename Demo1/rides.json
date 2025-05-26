@@ -1,0 +1,38 @@
+[
+  {
+    "Id": "6cc5923d-5e27-47e3-add0-407dcb95d8a1",
+    "CustomerId": "92d5cef1-6fe1-4697-97df-90652106a508",
+    "DriverId": null,
+    "PickupLocation": "H\u00E0 N\u1ED9i",
+    "DropoffLocation": "TP.H\u1ED3 Ch\u00ED Minh",
+    "Status": "Completed",
+    "ETA": 10
+  },
+  {
+    "Id": "62e67912-c959-4377-8e86-521cb13088c2",
+    "CustomerId": "6b7a7f06-6c1f-423e-991a-a78e1a290653",
+    "DriverId": null,
+    "PickupLocation": "H\u00E0 N\u1ED9i",
+    "DropoffLocation": "TP.H\u1ED3 Ch\u00ED Minh",
+    "Status": "Completed",
+    "ETA": 10
+  },
+  {
+    "Id": "d40d40d7-614c-4849-a342-fb0f225a1c3e",
+    "CustomerId": "289ae124-3499-41cb-a0f6-4eddf494d7fa",
+    "DriverId": null,
+    "PickupLocation": "H\u00E0 N\u1ED9i",
+    "DropoffLocation": "TP.H\u1ED3 Ch\u00ED Minh",
+    "Status": "\u0110\u00E3 ph\u00E2n c\u00F4ng",
+    "ETA": 10
+  },
+  {
+    "Id": "06be4a05-3fe0-4d90-9ba4-49608a7aa363",
+    "CustomerId": "734f7078-3bff-46de-8942-a8c819899cca",
+    "DriverId": null,
+    "PickupLocation": "TP.H\u1ED3 Ch\u00ED Minh",
+    "DropoffLocation": "V\u0169ng T\u00E0u",
+    "Status": "\u0110\u00E3 ph\u00E2n c\u00F4ng",
+    "ETA": 10
+  }
+]

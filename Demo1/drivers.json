@@ -1,0 +1,9 @@
+[
+  {
+    "Id": null,
+    "Name": "John Doe",
+    "IsAvailable": true,
+    "CurrentLocation": "City Center",
+    "CurrentRide": null
+  }
+]

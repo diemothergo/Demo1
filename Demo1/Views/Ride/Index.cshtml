@@ -1,0 +1,60 @@
+﻿@model SmartRide.Models.RideViewModel
+@{
+    ViewData["Title"] = "Đặt Chuyến Xe";
+}
+
+<div class="container mt-5">
+    <h1 class="display-4 mb-4">Đặt Chuyến Xe Của Quý Khách</h1>
+    <p class="lead text-muted">Vui lòng nhập thông tin địa điểm đón và trả để bắt đầu hành trình của quý khách.</p>
+    @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Lỗi nhập liệu</h4>
+            <p>@Html.ValidationSummary(false, "", new { @class = "text-danger" })</p>
+        </div>
+    }
+    <div class="card p-4 shadow-sm">
+        <form asp-action="Book" method="post" class="needs-validation" novalidate>
+            <div class="mb-4">
+                <label asp-for="PickupLocation" class="form-label fw-bold">Địa điểm Đón Khách <i class="bi bi-geo-alt-fill" data-bs-toggle="tooltip" title="Vui lòng nhập địa điểm đón khách, ví dụ: Hà Nội hoặc TP. Hồ Chí Minh"></i></label>
+                <input asp-for="PickupLocation" class="form-control" required placeholder="Nhập địa điểm đón, ví dụ: Hà Nội" />
+                <div class="invalid-feedback">
+                    Vui lòng nhập địa điểm đón.
+                </div>
+            </div>
+            <div class="mb-4">
+                <label asp-for="DropoffLocation" class="form-label fw-bold">Địa điểm Trả Khách <i class="bi bi-geo-alt-fill" data-bs-toggle="tooltip" title="Vui lòng nhập địa điểm trả khách, ví dụ: Đà Nẵng"></i></label>
+                <input asp-for="DropoffLocation" class="form-control" required placeholder="Nhập địa điểm trả, ví dụ: TP. Hồ Chí Minh" />
+                <div class="invalid-feedback">
+                    Vui lòng nhập địa điểm trả.
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Xác Nhận Đặt Xe</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+}
