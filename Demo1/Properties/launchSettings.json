@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "SmartRide": {
+    "Demo1": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:7120",

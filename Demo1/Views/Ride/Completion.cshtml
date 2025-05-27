@@ -1,22 +1,15 @@
-﻿@{
+﻿@model Demo1.Models.RideViewModel
+@{
     ViewData["Title"] = "Hoàn Tất Chuyến Xe";
 }
 
 <div class="container mt-5">
-    <h1 class="display-4 mb-4">Chuyến Xe Đã Hoàn Tất</h1>
-    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
-    {
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Thành công</h4>
-            <p>@ViewBag.SuccessMessage</p>
+    <div class="text-center">
+        <h1 class="display-4 text-success mb-4">Chuyến Xe Đã Hoàn Tất</h1>
+        <div class="alert alert-success mb-4" role="alert">
+            <p class="lead">@ViewBag.SuccessMessage</p>
+            <p><strong>Thông báo thanh toán:</strong> @ViewBag.Message</p>
         </div>
-    }
-    @if (!string.IsNullOrEmpty(ViewBag.Message))
-    {
-        <div class="alert alert-info" role="alert">
-            <h4 class="alert-heading">Thông Báo Thanh Toán</h4>
-            <p>@ViewBag.Message</p>
-        </div>
-    }
-    <a asp-action="Index" class="btn btn-primary btn-lg mt-4">Đặt Chuyến Xe Mới</a>
+        <a href="/Ride/Index" class="btn btn-primary btn-lg px-5">Đặt Chuyến Xe Mới</a>
+    </div>
 </div>

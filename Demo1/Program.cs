@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using SmartRide.Services;
+using Demo1.Services;
+using Demo1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,6 @@ builder.Services.AddControllersWithViews()
 
 builder.Services.AddSingleton<LocationTracker>();
 builder.Services.AddSingleton<PaymentSimulator>();
-builder.Services.AddSingleton<DataRepository>();
 builder.Services.AddSingleton<BookingManager>();
 
 var app = builder.Build();
@@ -18,7 +18,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage(); // Show detailed errors during development
+    app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -31,7 +31,6 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
-// Explicitly map the root URL to Ride/Index
 app.MapGet("/", context =>
 {
     context.Response.Redirect("/Ride");
