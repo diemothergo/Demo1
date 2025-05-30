@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Demo1.Models;
 using Demo1.Services;
-using Demo1.Services;
 
 namespace Demo1.Controllers
 {
@@ -43,7 +42,7 @@ namespace Demo1.Controllers
                 TempData["RideId"] = ride.Id;
                 return RedirectToAction("Track", new { id = model.RideId });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError("", "Đã xảy ra lỗi khi đặt chuyến đi. Vui lòng thử lại.");
                 return View("Index", model);
@@ -78,7 +77,7 @@ namespace Demo1.Controllers
                 TempData["SuccessMessage"] = "Chuyến đi đã được hủy thành công!";
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 TempData["ErrorMessage"] = "Đã xảy ra lỗi khi hủy chuyến đi. Vui lòng thử lại.";
                 return RedirectToAction("Track", new { id });
@@ -91,17 +90,24 @@ namespace Demo1.Controllers
             try
             {
                 var ride = _bookingManager.GetRide(id);
-                if (ride == null || ride.Status != "Đã đặt") return NotFound("Chuyến đi không hợp lệ hoặc đã hoàn tất.");
+                if (ride == null || ride.Status != RideStatus.Booked) return NotFound("Chuyến đi không hợp lệ hoặc đã hoàn tất.");
 
                 _bookingManager.CompleteRide(id);
                 ViewBag.Message = _paymentSimulator.ProcessPayment(ride);
                 ViewBag.SuccessMessage = "Chuyến đi đã hoàn tất! Cảm ơn quý khách đã sử dụng Demo1.";
                 return View("Completion");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return NotFound("Đã xảy ra lỗi khi hoàn tất chuyến đi.");
             }
+        }
+
+        public IActionResult History()
+        {
+            var rides = _bookingManager.GetAllRides();
+            var model = new RideHistoryViewModel { Rides = rides };
+            return View(model);
         }
     }
 }

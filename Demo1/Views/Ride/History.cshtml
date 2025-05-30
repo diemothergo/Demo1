@@ -1,0 +1,37 @@
+﻿@model Demo1.Models.RideHistoryViewModel
+@{
+    ViewData["Title"] = "Lịch sử chuyến đi";
+}
+<div class="container mt-5">
+    <h2 class="text-primary mb-4">Lịch Sử Các Chuyến Đi</h2>
+    @if (!Model.Rides.Any())
+    {
+        <p>Không có chuyến đi nào.</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Mã</th>
+                    <th>Điểm đón</th>
+                    <th>Điểm trả</th>
+                    <th>Trạng thái</th>
+                    <th>ETA (phút)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ride in Model.Rides)
+                {
+                    <tr>
+                        <td>@ride.Id</td>
+                        <td>@ride.PickupLocation</td>
+                        <td>@ride.DropoffLocation</td>
+                        <td>@ride.Status</td>
+                        <td>@ride.ETA</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

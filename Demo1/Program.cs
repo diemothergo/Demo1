@@ -1,6 +1,5 @@
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Demo1.Services;
 using Demo1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +11,16 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddSingleton<LocationTracker>();
 builder.Services.AddSingleton<PaymentSimulator>();
 builder.Services.AddSingleton<BookingManager>();
+
+// ✅ Add authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/Logout";
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -28,7 +37,11 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
+// ✅ Enable auth middleware
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapGet("/", context =>

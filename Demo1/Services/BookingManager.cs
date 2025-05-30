@@ -7,7 +7,7 @@ namespace Demo1.Services
 {
     public class BookingManager
     {
-        private readonly List<Ride> _rides = new List<Ride>();
+        private readonly List<Ride> _rides = new();
         private readonly LocationTracker _locationTracker;
 
         public BookingManager(LocationTracker locationTracker)
@@ -23,7 +23,7 @@ namespace Demo1.Services
                 Customer = customer,
                 PickupLocation = pickupLocation,
                 DropoffLocation = dropoffLocation,
-                Status = "Đã đặt",
+                Status = RideStatus.Booked,
                 ETA = 15,
                 DriverId = Guid.NewGuid().ToString()
             };
@@ -31,10 +31,9 @@ namespace Demo1.Services
             return ride;
         }
 
-        public Ride GetRide(string id)
-        {
-            return _rides.FirstOrDefault(r => r.Id == id);
-        }
+        public Ride? GetRide(string id) => _rides.FirstOrDefault(r => r.Id == id);
+
+        public List<Ride> GetAllRides() => _rides;
 
         public Driver GetDriver(string driverId)
         {
@@ -44,7 +43,7 @@ namespace Demo1.Services
         public void CompleteRide(string id)
         {
             var ride = GetRide(id);
-            if (ride != null) ride.Status = "Hoàn tất";
+            if (ride != null) ride.Status = RideStatus.Completed;
         }
 
         public void CancelRide(string id)
@@ -53,7 +52,7 @@ namespace Demo1.Services
             if (ride != null)
             {
                 _rides.Remove(ride);
-                ride.Status = "Đã hủy";
+                ride.Status = RideStatus.Cancelled;
             }
         }
     }
